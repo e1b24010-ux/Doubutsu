@@ -2,7 +2,7 @@ abstract class AbstractKoma {
   String name;
   int x;
   int y;
-  int team;//0 or 1
+  int team;
   KomaStatus kStat;
 
   AbstractKoma(String name, int x, int y, int team, boolean active) {
@@ -22,5 +22,18 @@ abstract class AbstractKoma {
     PImage img = loadImage(komaImage);
     image(img, SQUARESIZE*this.x+2, this.y*SQUARESIZE+2, SQUARESIZE-4, SQUARESIZE-4);
 
+    if (this.kStat.selected) this.drawSelected();
+  }
+  void drawSelected() {
+    fill(#FF0000, SQUARESIZE);
+    rect(this.x*SQUARESIZE, this.y*SQUARESIZE, SQUARESIZE, SQUARESIZE);
+  }
+  void move(int toX, int toY) {
+    this.updatePos(toX, toY);
+  }
+  void updatePos(int toX, int toY) {
+    this.x=toX;
+    this.y=toY;
+    gs.turn = (gs.turn+1)%2;
   }
 }
